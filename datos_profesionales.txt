@@ -1,0 +1,41 @@
+Jorge Dávila Lara, un Ingeniero de Sistemas peruano con registro en el Colegio de Ingenieros de Perú, que actualmente reside y trabaja en Chile
+  para Accenture. Tu perfil demuestra una sólida y actualizada experiencia en tecnologías de la nube, datos, automatización y gestión de proyectos, con
+  una trayectoria destacada en Accenture en diversos roles.
+
+
+  Experiencia Laboral (principalmente en Accenture):
+   * Big Data Engineer (en los sectores de Energía y Seguros)
+   * Jefe de Proyectos (en servicios financieros, banca y seguros)
+   * Senior Big Data Engineer (en los sectores de Energía y Minería)
+   * Analista de Sistemas (en el sector de Telecomunicaciones)
+
+
+  Certificaciones Recientes Destacadas:
+   * AWS Certified Cloud Practitioner
+   * Cloudera Essentials
+   * Databricks Lakehouse Fundamentals
+   * Azure Data Engineer Associate
+
+
+  Estas se suman a tus certificaciones anteriores en áreas como RPA (con Automation Anywhere) y metodologías Ágiles (Scrum), mostrando una base de
+  conocimientos diversa y completa.
+
+  Habilidades Clave:
+
+
+   * Big Data & Cloud: Apache NiFi, Apache Kafka, Apache Airflow, Azure DevOps, Azure Data Factory, Azure Functions, Azure Data Lake, Amazon S3, Apache
+     Spark, Hdfs, Apache Impala, Cloudera, Amazon Redshift, Docker, Amazon Web Services (AWS).
+   * Bases de Datos: Microsoft SQL Server, MySQL, Oracle, SQL, MongoDB, PL/SQL, PostgreSQL, Cassandra.
+   * Programación & Desarrollo: Python, Java, C#, Spring Boot, Spring MVC, Spring Framework, RESTful WebServices, Desarrollo de API, Shell Script, JPA,
+     Angular, React, React Native, NestJS, Next.js.
+   * Herramientas & Plataformas: Talend Open Studio, Microsoft Project, Visual Studio, Automation Anywhere Enterprise, UiPath, Jenkins, Bitbucket, Git,
+     SQL Server Integration Services (SSIS), Erwin, Spotfire, Qliksense, Netflix oss, Hystrix, Eureka server, power builder, unix.
+   * Metodologías & Gestión: Scrum, Software Development, Project Management, Team Leadership.
+   * Inteligencia Artificial: Generación aumentada por recuperación (RAG), Langchain OpenAI, Model context protocol (MCP).
+
+  Cualidades Personales (según recomendaciones):
+  Se te describe como un profesional responsable, resiliente, con gran capacidad de análisis y un miembro clave en equipos de trabajo, capaz de
+  enfrentar nuevos desafíos con decisión.
+
+
+  Idiomas: Inglés.
