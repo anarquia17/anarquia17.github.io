@@ -1,6 +1,28 @@
 {
   "projects": [
     {
+      "name": "Multi-LLM AI Gateway",
+      "icon": "🌐",
+      "description": {
+        "es": "Un solo endpoint para 290+ proveedores de IA (90+ gratuitos) y 500+ modelos: Claude, GPT/OpenAI, Gemini, DeepSeek, Kimi, MiniMax, GLM y open source (Llama, Hermes de Nous Research). Con auto-fallback por cuotas, compresión de tokens y soporte MCP/A2A.",
+        "en": "One endpoint for 290+ AI providers (90+ free) and 500+ models: Claude, GPT/OpenAI, Gemini, DeepSeek, Kimi, MiniMax, GLM and open source (Llama, Hermes by Nous Research). Quota-aware auto-fallback, token compression and MCP/A2A support."
+      },
+      "tags": ["LLM", "Claude", "GPT", "Gemini", "DeepSeek", "Kimi", "MiniMax", "GLM", "Hermes", "Llama", "MCP", "A2A"],
+      "url": "https://omniroute.online",
+      "github": "https://github.com/anarquia17/OmniRoute"
+    },
+    {
+      "name": "AI Agents & Process Automation",
+      "icon": "🤖",
+      "description": {
+        "es": "Creación de agentes que automatizan procesos de ingeniería y operación usando OpenClaw, Claude Code y OpenCode como orquestadores, con modelos de paga y open source (incluidos los de Nous Research).",
+        "en": "Building agents that automate engineering and operational processes using OpenClaw, Claude Code and OpenCode as orchestrators, with paid and open source models (including Nous Research's)."
+      },
+      "tags": ["AI Agents", "OpenClaw", "Claude Code", "OpenCode", "Automation", "LLM"],
+      "url": "",
+      "github": "https://github.com/anarquia17/openclaw-bot-review"
+    },
+    {
       "name": "Pyspark ETL",
       "icon": "🔥",
       "description": {
@@ -12,13 +34,13 @@
       "github": "https://github.com/anarquia17/Pyspark"
     },
     {
-      "name": "Chatbot GPT-3.5",
-      "icon": "🤖",
+      "name": "Chatbot IA Multi-Proveedor",
+      "icon": "💬",
       "description": {
-        "es": "Chatbot potenciado con Inteligencia Artificial sobre la API de OpenAI.",
-        "en": "AI-powered chatbot built on the OpenAI API."
+        "es": "Chatbot potenciado con IA. Evolución del proyecto original sobre OpenAI hacia soporte multi-proveedor: modelos de paga (GPT, Claude, Gemini) y open source (Llama, Hermes, DeepSeek).",
+        "en": "AI-powered chatbot. Evolution of the original OpenAI project toward multi-provider support: paid models (GPT, Claude, Gemini) and open source (Llama, Hermes, DeepSeek)."
       },
-      "tags": ["AI", "OpenAI", "Chatbot", "Python"],
+      "tags": ["AI", "Chatbot", "GPT", "Claude", "Gemini", "Llama", "Hermes", "Python"],
       "url": "",
       "github": "https://github.com/anarquia17/Chatbot-GPT-3.5"
     },

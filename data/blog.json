@@ -1,0 +1,36 @@
+{
+  "posts": [
+    {
+      "title": {
+        "es": "De legacy a Lakehouse: modernizando plataformas de datos con Apache Iceberg",
+        "en": "From legacy to Lakehouse: modernizing data platforms with Apache Iceberg"
+      },
+      "date": "2026-08-01",
+      "category": {
+        "es": "Data Engineering",
+        "en": "Data Engineering"
+      },
+      "excerpt": {
+        "es": "Cómo abordar la modernización de ecosistemas de datos legacy hacia arquitecturas Lakehouse: evaluación, estrategia de migración y lecciones aprendidas con Cloudera CDP y Databricks. (Artículo en preparación)",
+        "en": "How to approach legacy data ecosystem modernization toward Lakehouse architectures: assessment, migration strategy and lessons learned with Cloudera CDP and Databricks. (Draft)"
+      },
+      "url": ""
+    },
+    {
+      "title": {
+        "es": "Agentes que automatizan procesos: OpenClaw, Claude Code y OpenCode en acción",
+        "en": "Agents that automate processes: OpenClaw, Claude Code and OpenCode in action"
+      },
+      "date": "2026-08-15",
+      "category": {
+        "es": "IA Generativa",
+        "en": "Generative AI"
+      },
+      "excerpt": {
+        "es": "Experiencias reales construyendo agentes que automatizan tareas de ingeniería: orquestación, modelos de paga y open source, y el ecosistema de herramientas. (Artículo en preparación)",
+        "en": "Real experiences building agents that automate engineering tasks: orchestration, paid and open source models, and the tooling ecosystem. (Draft)"
+      },
+      "url": ""
+    }
+  ]
+}

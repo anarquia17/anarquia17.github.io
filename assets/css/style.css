@@ -502,6 +502,60 @@ body {
   color: var(--accent);
 }
 
+/* ---------- Blog ---------- */
+.blog-sub {
+  color: var(--text-dim);
+  max-width: 620px;
+  margin-bottom: 44px;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 22px;
+}
+
+.blog-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+
+.blog-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: var(--shadow); }
+
+.blog-meta {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.blog-card h3 { font-size: 1.06rem; line-height: 1.4; }
+
+.blog-card p { font-size: 0.9rem; color: var(--text-dim); flex-grow: 1; }
+
+.blog-readmore {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--accent);
+}
+
+.projects-empty,
+.blog-empty {
+  color: var(--text-dim);
+  font-style: italic;
+  grid-column: 1 / -1;
+  padding: 20px 0;
+}
+
 /* ---------- Certifications ---------- */
 .certs-grid {
   display: grid;

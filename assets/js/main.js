@@ -15,13 +15,15 @@
         "Senior Data Engineer",
         "Technical Leader",
         "Big Data & Cloud Specialist",
-        "Azure Data Engineer Certified"
+        "Azure Data Engineer Certified",
+        "AI Agents & Automation"
       ],
       en: [
         "Senior Data Engineer",
         "Technical Leader",
         "Big Data & Cloud Specialist",
-        "Azure Data Engineer Certified"
+        "Azure Data Engineer Certified",
+        "AI Agents & Automation"
       ]
     }
   };
@@ -213,6 +215,63 @@
       .join("");
   }
 
+  /* ---------- Blog (fetch local JSON) ---------- */
+  const blogGrid = document.getElementById("blogGrid");
+
+  async function loadBlog() {
+    try {
+      const res = await fetch("data/blog.json", { cache: "no-store" });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const data = await res.json();
+      window.__BLOG__ = data.posts || [];
+    } catch (e) {
+      console.warn("No se pudo cargar blog.json:", e.message);
+      window.__BLOG__ = [];
+    }
+    renderBlog();
+  }
+
+  function renderBlog() {
+    if (!blogGrid) return;
+    const posts = window.__BLOG__ || [];
+
+    if (!posts.length) {
+      const emptyMsg = I18N[currentLang]["blog.empty"] || "";
+      blogGrid.innerHTML = '<p class="blog-empty">' + emptyMsg + "</p>";
+      return;
+    }
+
+    blogGrid.innerHTML = posts
+      .map((post) => {
+        const title = post.title[currentLang] || post.title.es || "";
+        const cat = post.category[currentLang] || post.category.es || "";
+        const excerpt = post.excerpt[currentLang] || post.excerpt.es || "";
+        const date = post.date
+          ? new Date(post.date + "T00:00:00").toLocaleDateString(currentLang === "es" ? "es-CL" : "en-US", {
+              year: "numeric",
+              month: "short",
+              day: "numeric"
+            })
+          : "";
+        const readMore = post.url
+          ? '<span class="blog-readmore">' +
+            (currentLang === "es" ? "Leer artículo →" : "Read article →") +
+            "</span>"
+          : "";
+        return (
+          '<a class="blog-card reveal visible"' +
+          (post.url ? ' href="' + post.url + '" target="_blank" rel="noopener"' : "") +
+          ">" +
+          '<span class="blog-meta">' + cat + (date ? " · " + date : "") + "</span>" +
+          "<h3>" + title + "</h3>" +
+          "<p>" + excerpt + "</p>" +
+          readMore +
+          "</a>"
+        );
+      })
+      .join("");
+  }
+
   /* ---------- Contact data ---------- */
   function setContact() {
     const emailEl = document.getElementById("contactEmail");
@@ -238,4 +297,5 @@
   setContact();
   typeLoop();
   loadProjects();
+  loadBlog();
 })();
