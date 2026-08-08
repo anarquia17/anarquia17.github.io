@@ -1,0 +1,48 @@
+{
+  "projects": [
+    {
+      "name": "Pyspark ETL",
+      "icon": "🔥",
+      "description": {
+        "es": "Práctica de ETL con PySpark: transformaciones distribuidas, DataFrames y procesamiento de datos a escala.",
+        "en": "PySpark ETL practice: distributed transformations, DataFrames and large-scale data processing."
+      },
+      "tags": ["PySpark", "ETL", "Python"],
+      "url": "",
+      "github": "https://github.com/anarquia17/Pyspark"
+    },
+    {
+      "name": "Chatbot GPT-3.5",
+      "icon": "🤖",
+      "description": {
+        "es": "Chatbot potenciado con Inteligencia Artificial sobre la API de OpenAI.",
+        "en": "AI-powered chatbot built on the OpenAI API."
+      },
+      "tags": ["AI", "OpenAI", "Chatbot", "Python"],
+      "url": "",
+      "github": "https://github.com/anarquia17/Chatbot-GPT-3.5"
+    },
+    {
+      "name": "Sistema de Ventas — Spring Boot",
+      "icon": "🛒",
+      "description": {
+        "es": "Sistema de ventas full stack: backend Spring Boot con frontend Angular.",
+        "en": "Full-stack sales system: Spring Boot backend with Angular frontend."
+      },
+      "tags": ["Java", "Spring Boot", "Angular"],
+      "url": "",
+      "github": "https://github.com/anarquia17/sistema-ventas-spring-boot"
+    },
+    {
+      "name": "Data Warehouse Cloud",
+      "icon": "☁️",
+      "description": {
+        "es": "Implementación de data warehouse en la nube: modelado, carga y consultas analíticas.",
+        "en": "Cloud data warehouse implementation: modeling, loading and analytical queries."
+      },
+      "tags": ["Cloud", "Data Warehouse", "SQL"],
+      "url": "",
+      "github": "https://github.com/anarquia17/data_warehouse_cloud"
+    }
+  ]
+}
