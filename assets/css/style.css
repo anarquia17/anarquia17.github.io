@@ -651,11 +651,12 @@ body {
     gap: 18px;
     border-bottom: 1px solid var(--border);
     transform: translateY(-120%);
-    transition: transform 0.3s ease;
+    visibility: hidden;
+    transition: transform 0.3s ease, visibility 0.3s;
     align-items: flex-start;
   }
 
-  .nav-links.open { transform: none; }
+  .nav-links.open { transform: none; visibility: visible; }
 
   .menu-toggle { display: flex; }
 
