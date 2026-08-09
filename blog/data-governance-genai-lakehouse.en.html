@@ -79,7 +79,7 @@
 
     <div class="callout">
       <h4>📌 Golden rule</h4>
-      <p>If the data is not in the catalog with an applied policy and quality expectation, it <strong>does not exist</strong> for production consumption — for humans or for models.</p>
+      <p>If the data is not in the catalog with an applied policy and quality expectation, it does not exist for our business production consumption, nor for the models we will work with.</p>
     </div>
 
     <h2>3. Governance applied to the data lifecycle in Iceberg</h2>
@@ -96,7 +96,7 @@
     <p>Four minimum controls before feeding a RAG or an agent:</p>
     <ul>
       <li><strong>Provenance:</strong> every chunk or document entering the vector store must carry its lineage — which table, which pipeline, which snapshot. If the model hallucinates, you can trace the origin.</li>
-      <li><strong>PII and sensitive data:</strong> automated classification (sensitive column tagging) must run before indexing. An active catalog with classification policies prevents the RAG from answering with customer ID numbers.</li>
+      <li><strong>PII (Personally Identifiable Information) and sensitive data:</strong> automated classification (sensitive column tagging) must run before indexing. An active catalog with classification policies prevents the RAG from answering with customer ID numbers.</li>
       <li><strong>Retention and deletion:</strong> the "right to be forgotten" does not exist in a vector store unless designed for it. Catalog retention policies must be replicated in the vector index: if data expires in the Lakehouse, it expires in the RAG.</li>
       <li><strong>Inherited access control:</strong> the RAG must not have more permissions than the human asking. Row-level security enforced at the source must propagate to the retrieval layer.</li>
     </ul>

@@ -79,7 +79,7 @@
 
     <div class="callout">
       <h4>📌 Regla de oro</h4>
-      <p>Si el dato no está en el catálogo con política aplicada y expectativa de calidad, <strong>no existe</strong> para consumo productivo — ni para humanos ni para modelos.</p>
+      <p>Si el dato no está en el catálogo con política aplicada y expectativa de calidad, no existe para consumo productivo de nuestro negocio, ni para modelos con el que trabajaremos.</p>
     </div>
 
     <h2>3. Governance aplicado al ciclo de vida del dato en Iceberg</h2>
@@ -96,7 +96,7 @@
     <p>Cuatro controles mínimos antes de alimentar un RAG o un agente:</p>
     <ul>
       <li><strong>Provenance:</strong> todo chunk o documento que entra al vector store debe traer su lineage — de qué tabla, qué pipeline, qué snapshot. Si el modelo alucina, se puede rastrear el origen.</li>
-      <li><strong>PII y datos sensibles:</strong> la clasificación automática (etiquetado de columnas sensibles) debe correr antes de la indexación. Un catálogo activo con políticas de clasificación evita que el RAG conteste con números de cliente.</li>
+      <li><strong>PII (Información Personal Identificable) y datos sensibles:</strong> la clasificación automática (etiquetado de columnas sensibles) debe correr antes de la indexación. Un catálogo activo con políticas de clasificación evita que el RAG conteste con números de cliente.</li>
       <li><strong>Retención y borrado:</strong> el "derecho al olvido" no existe en un vector store si no se diseñó para eso. Las políticas de retención del catálogo deben replicarse en el índice vectorial: si un dato expira en el Lakehouse, expira en el RAG.</li>
       <li><strong>Control de acceso heredado:</strong> el RAG no debe tener más permisos que el humano que pregunta. Row-level security aplicado en la fuente debe propagarse a la capa de retrieva.</li>
     </ul>
