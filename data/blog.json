@@ -46,7 +46,7 @@
         "es": "Cómo implementar governance moderno en un Lakehouse (Iceberg, Databricks, Cloudera) que además alimenta aplicaciones de IA generativa (RAG, agentes): catálogo activo, lineage automatizado, calidad como código y control de acceso fino, con roadmap de implementación en 90 días. (Artículo en preparación — fuentes validadas: Bismart, Deimos, Gartner D&A trends)",
         "en": "How to implement modern governance on a Lakehouse (Iceberg, Databricks, Cloudera) that also powers generative AI applications (RAG, agents): active catalog, automated lineage, quality-as-code and fine-grained access control, with a 90-day implementation roadmap. (Draft — validated sources: Bismart, Deimos, Gartner D&A trends)"
       },
-      "url": ""
+      "url": "blog/data-governance-genai-lakehouse.html"
     }
   ]
 }
