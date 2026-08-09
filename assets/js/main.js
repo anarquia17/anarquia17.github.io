@@ -122,44 +122,52 @@
   }
 
   /* ---------- Reveal on scroll ---------- */
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
-  );
+  const revealObserver = typeof IntersectionObserver !== "undefined"
+    ? new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      )
+    : null;
 
-  document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+  if (revealObserver) {
+    document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+  }
 
   /* ---------- Animated counters ---------- */
-  const counterObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target;
-        counterObserver.unobserve(el);
-        const target = parseInt(el.dataset.count, 10) || 0;
-        const dur = 1200;
-        const start = performance.now();
+  const counterObserver = typeof IntersectionObserver !== "undefined"
+    ? new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            counterObserver.unobserve(el);
+            const target = parseInt(el.dataset.count, 10) || 0;
+            const dur = 1200;
+            const start = performance.now();
 
-        function tick(now) {
-          const p = Math.min((now - start) / dur, 1);
-          const eased = 1 - Math.pow(1 - p, 3);
-          el.textContent = Math.round(target * eased);
-          if (p < 1) requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-      });
-    },
-    { threshold: 0.6 }
-  );
+            function tick(now) {
+              const p = Math.min((now - start) / dur, 1);
+              const eased = 1 - Math.pow(1 - p, 3);
+              el.textContent = Math.round(target * eased);
+              if (p < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+          });
+        },
+        { threshold: 0.6 }
+      )
+    : null;
 
-  document.querySelectorAll("[data-count]").forEach((el) => counterObserver.observe(el));
+  if (counterObserver) {
+    document.querySelectorAll("[data-count]").forEach((el) => counterObserver.observe(el));
+  }
 
   /* ---------- Projects (fetch local JSON) ---------- */
   const projectsGrid = document.getElementById("projectsGrid");
