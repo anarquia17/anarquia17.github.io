@@ -650,7 +650,7 @@ body {
     padding: 24px;
     gap: 18px;
     border-bottom: 1px solid var(--border);
-    transform: translateY(-120%);
+    transform: translateY(calc(-100% - 68px));
     visibility: hidden;
     transition: transform 0.3s ease, visibility 0.3s;
     align-items: flex-start;
