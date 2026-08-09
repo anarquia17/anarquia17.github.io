@@ -43,6 +43,7 @@
     document.documentElement.lang = lang;
     langLabel.textContent = lang === "es" ? "EN" : "ES";
     renderProjects();
+    renderBlog();
   }
 
   function toggleLang() {
