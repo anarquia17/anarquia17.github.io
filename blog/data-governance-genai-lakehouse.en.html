@@ -62,20 +62,21 @@
     <p>That model breaks on two fronts at the same time. On one side, the <strong>Lakehouse</strong> (Apache Iceberg, Databricks, Cloudera CDP) brings open, multi-format, decentralized data: metadata no longer lives in a central repository — it is distributed across tables, files, schemas and snapshots. On the other side, <strong>generative AI</strong> turns data into the fuel for systems that did not exist before: RAG, fine-tuning, agents. A monthly committee cannot govern something that changes every hour and that models consume automatically.</p>
     <blockquote>The question is no longer "who approves this dataset?" but "how do I trust that this data can feed a model without leaking PII, without bias and with verifiable provenance?"</blockquote>
     <p>Gartner sums it up in its 2026 D&amp;A trends analysis: we moved <strong>"from a single source of truth to an avalanche of distrust."</strong> With medallion architecture, purpose-built data warehouses and persistence in AI tools, there is no single version of truth anymore — and generative AI keeps making inaccurate or incomplete data more accessible. Modern governance is not a dictionary: it is the <strong>structural answer to distrust</strong>.</p>
+    <p>The numbers confirm it. According to Accenture's <em>AI-Ready Data for Advanced AI</em> study (2026), only <strong>7%</strong> of companies (the "data reinventors") have the data readiness needed to scale advanced AI — generative, agentic and physical — even though <strong>64%</strong> have already moved from pilots to production. And the Cloudera Data Readiness Index (2026) shows the other side of the coin: <strong>56%</strong> of technology companies lack full access to their data, and <strong>30%</strong> of leaders cite data quality as the main reason AI projects fail to deliver ROI. Governance is not bureaucracy: it is the condition for AI to deliver value.</p>
 
     <h2>2. The 4 pillars of modern governance</h2>
 
     <h3>2.1 Active catalog</h3>
-    <p>A catalog that only lists tables is an inventory. An <strong>active</strong> catalog is the control layer: it describes, classifies, applies policies and tracks usage in real time. In the Lakehouse ecosystem, tools like <a href="https://open-metadata.org/" target="_blank" rel="noopener">OpenMetadata</a> (open source), Unity Catalog or the Cloudera catalog are not optional: they are where the policies that processing engines consult on every read actually live.</p>
+    <p>A catalog that only lists tables is an inventory. An <strong>active</strong> catalog is the control layer: it describes, classifies, applies policies and tracks usage in real time. Leading Lakehouse platforms already ship their governance layer: <a href="https://atlas.apache.org/" target="_blank" rel="noopener">Apache Atlas</a> (open source), <a href="https://www.cloudera.com/products/cloudera-data-platform.html" target="_blank" rel="noopener">Cloudera Data Catalog</a> (with Apache Ranger integrated in CDP), <a href="https://www.databricks.com/product/unity-catalog" target="_blank" rel="noopener">Unity Catalog</a> (Databricks), <a href="https://www.snowflake.com/en/data-cloud/horizon/" target="_blank" rel="noopener">Snowflake Horizon</a>, <a href="https://learn.microsoft.com/en-us/purview/" target="_blank" rel="noopener">Microsoft Purview</a> (Azure), <a href="https://aws.amazon.com/datazone/" target="_blank" rel="noopener">AWS DataZone</a> and <a href="https://cloud.google.com/dataplex" target="_blank" rel="noopener">Google Dataplex</a>. They are not optional: they are where the policies that processing engines consult on every read actually live.</p>
 
     <h3>2.2 Automated lineage</h3>
     <p>Manual lineage dies in the first pipeline. Modern lineage is extracted automatically from execution plans (Spark, Airflow, dbt): every transformation leaves a trace of which columns come from where. This is not just traceability — it is the foundation for <strong>impact analysis</strong> ("if I change this schema, which models and dashboards break?") and for auditing the origin of any data feeding a model.</p>
 
     <h3>2.3 Quality as code</h3>
-    <p>Quality controls no longer live in Excel files or checklists: they are versioned as code in the repository and run as part of the pipeline. Frameworks like <a href="https://greatexpectations.io/" target="_blank" rel="noopener">Great Expectations</a> and <a href="https://www.soda.io/" target="_blank" rel="noopener">Soda</a> let you define declarative expectations (null rates, ranges, uniqueness, freshness) that run on every deploy. If an expectation fails, the pipeline fails — before contaminated data reaches a model.</p>
+    <p>Quality controls no longer live in Excel files or checklists: they are versioned as code in the repository and run as part of the pipeline. In the open source world, <a href="https://www.getdbt.com/" target="_blank" rel="noopener">dbt</a> lets you define declarative <em>tests</em> (uniqueness, not null, ranges, freshness) versioned in the repo and executed on every deploy. Commercial platforms offer the same natively: Databricks Lakehouse Monitoring, Snowflake Horizon (data quality), <a href="https://aws.amazon.com/glue/features/data-quality/" target="_blank" rel="noopener">AWS Glue Data Quality</a> and Google Dataplex Quality. If an expectation fails, the pipeline fails — before contaminated data reaches a model.</p>
 
     <h3>2.4 Fine-grained access control</h3>
-    <p>In an enterprise environment with Iceberg on Cloudera or Databricks, access control must be <strong>fine-grained and centralized</strong>: row-level and column-level security, not just table access. <a href="https://ranger.apache.org/" target="_blank" rel="noopener">Apache Ranger</a> and <a href="https://www.databricks.com/product/unity-catalog" target="_blank" rel="noopener">Unity Catalog</a> are the de facto standards: central policies enforced at the compute engine, preventing "shadow data" (copies living outside catalog control).</p>
+    <p>In an enterprise environment with Iceberg on Cloudera or Databricks, access control must be <strong>fine-grained and centralized</strong>: row-level and column-level security, not just table access. <a href="https://ranger.apache.org/" target="_blank" rel="noopener">Apache Ranger</a> is natively integrated in Cloudera CDP for unified governance (security, lineage and audit), and <a href="https://www.databricks.com/product/unity-catalog" target="_blank" rel="noopener">Unity Catalog</a> does the same in Databricks: central policies enforced at the compute engine, preventing "shadow data" (copies living outside catalog control).</p>
 
     <div class="callout">
       <h4>📌 Golden rule</h4>
@@ -109,7 +110,7 @@
     <h2>6. 90-day implementation roadmap</h2>
     <div class="callout">
       <h4>Phase 1 — Days 1-30: Inventory and active catalog</h4>
-      <p>Map critical datasets (20% of data = 80% of value). Load the catalog (OpenMetadata / Unity Catalog / CDP). Define owners. Classify PII in the top datasets. Measure: % of critical data cataloged.</p>
+      <p>Map critical datasets (20% of data = 80% of value). Load the catalog (Cloudera Data Catalog / Unity Catalog / Snowflake Horizon / Purview). Define owners. Classify PII in the top datasets. Measure: % of critical data cataloged.</p>
     </div>
     <div class="callout">
       <h4>Phase 2 — Days 31-60: Lineage, quality and fine-grained access</h4>
@@ -135,13 +136,17 @@
     <h2>Sources</h2>
     <ul class="sources">
       <li>Gartner — Top Data &amp; Analytics Trends: <a href="https://gartner.es/es/tecnologia-de-la-informacion/temas/tendencias-de-datos" target="_blank" rel="noopener">gartner.es/es/tecnologia-de-la-informacion/temas/tendencias-de-datos</a></li>
-      <li>Bismart — 2026 Data Trends every company should know (IDC: $420B in data analytics by 2026; Gartner: 60% of repetitive data management tasks automated by 2027): <a href="https://blog.bismart.com/tendencias-datos-2026-empresas" target="_blank" rel="noopener">blog.bismart.com/tendencias-datos-2026-empresas</a></li>
-      <li>Deimos Estadística — Data &amp; analytics trends for 2026 (BARC Data &amp; BI Trend Monitor 2026): <a href="https://deimosestadistica.com/tendencias-datos-2026/" target="_blank" rel="noopener">deimosestadistica.com/tendencias-datos-2026/</a></li>
+      <li>Accenture — AI-Ready Data for Advanced AI (research report, 2026): only 7% of companies are data-ready for advanced AI; 64% already in production; data reinventors achieve up to 1.6x margin uplift: <a href="https://www.accenture.com/us-en/insights/ai-data/ai-ready-data" target="_blank" rel="noopener">accenture.com/us-en/insights/ai-data/ai-ready-data</a></li>
+      <li>Cloudera — Data Readiness Index / Data Readiness to Data Reality (2026): 56% lack full data access; 30% cite quality as the reason AI projects fail ROI; 65% of energy/utilities with mature governance: <a href="https://www.cloudera.com/blog/business/data-readiness-to-data-reality-how-key-industries-are-rewiring-their-data-strategies.html" target="_blank" rel="noopener">cloudera.com/blog/business/data-readiness-to-data-reality</a></li>
       <li>Apache Iceberg: <a href="https://iceberg.apache.org/" target="_blank" rel="noopener">iceberg.apache.org</a></li>
+      <li>Cloudera Data Platform (CDP) — unified governance with Apache Ranger integrated: <a href="https://www.cloudera.com/products/cloudera-data-platform.html" target="_blank" rel="noopener">cloudera.com/products/cloudera-data-platform</a></li>
+      <li>Apache Ranger: <a href="https://ranger.apache.org/" target="_blank" rel="noopener">ranger.apache.org</a> · Apache Atlas: <a href="https://atlas.apache.org/" target="_blank" rel="noopener">atlas.apache.org</a></li>
       <li>Databricks Unity Catalog: <a href="https://www.databricks.com/product/unity-catalog" target="_blank" rel="noopener">databricks.com/product/unity-catalog</a></li>
-      <li>Apache Ranger: <a href="https://ranger.apache.org/" target="_blank" rel="noopener">ranger.apache.org</a></li>
-      <li>OpenMetadata: <a href="https://open-metadata.org/" target="_blank" rel="noopener">open-metadata.org</a></li>
-      <li>Great Expectations: <a href="https://greatexpectations.io/" target="_blank" rel="noopener">greatexpectations.io</a> · Soda: <a href="https://www.soda.io/" target="_blank" rel="noopener">soda.io</a></li>
+      <li>Snowflake Horizon: <a href="https://www.snowflake.com/en/data-cloud/horizon/" target="_blank" rel="noopener">snowflake.com/en/data-cloud/horizon</a></li>
+      <li>Microsoft Purview (Azure): <a href="https://learn.microsoft.com/en-us/purview/" target="_blank" rel="noopener">learn.microsoft.com/en-us/purview</a></li>
+      <li>AWS DataZone: <a href="https://aws.amazon.com/datazone/" target="_blank" rel="noopener">aws.amazon.com/datazone</a> · AWS Glue Data Quality: <a href="https://aws.amazon.com/glue/features/data-quality/" target="_blank" rel="noopener">aws.amazon.com/glue/features/data-quality</a></li>
+      <li>Google Dataplex: <a href="https://cloud.google.com/dataplex" target="_blank" rel="noopener">cloud.google.com/dataplex</a></li>
+      <li>dbt (quality as code): <a href="https://www.getdbt.com/" target="_blank" rel="noopener">getdbt.com</a></li>
     </ul>
 
     <nav class="article-nav">
