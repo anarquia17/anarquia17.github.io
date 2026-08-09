@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Governance for the GenAI Era — Jorge Davila Lara</title>
+  <meta name="description" content="A practical guide to implementing modern governance on Lakehouse platforms (Iceberg, Databricks, Cloudera) that power generative AI applications (RAG, agents): active catalog, automated lineage, quality-as-code and fine-grained access control." />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    .article { max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; }
+    .article-header { margin-bottom: 40px; }
+    .article-meta { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+    .article h1 { font-size: clamp(1.8rem, 4.5vw, 2.6rem); line-height: 1.25; letter-spacing: -0.5px; margin-bottom: 14px; }
+    .article .subtitle { color: var(--text-dim); font-size: 1.05rem; margin-bottom: 10px; }
+    .article h2 { font-size: 1.45rem; margin: 44px 0 16px; padding-top: 8px; border-top: 1px solid var(--border); }
+    .article h3 { font-size: 1.1rem; margin: 26px 0 10px; color: var(--accent); }
+    .article p { color: var(--text-dim); margin-bottom: 16px; font-size: 1rem; }
+    .article ul, .article ol { color: var(--text-dim); margin: 0 0 18px 22px; }
+    .article li { margin-bottom: 8px; }
+    .article li::marker { color: var(--accent); }
+    .article blockquote { border-left: 3px solid var(--accent); background: var(--accent-dim); padding: 14px 20px; border-radius: 0 8px 8px 0; margin: 20px 0; color: var(--text); font-style: italic; }
+    .article strong { color: var(--text); }
+    .article code { font-family: var(--mono); font-size: 0.88em; background: var(--bg-card); border: 1px solid var(--border); padding: 2px 7px; border-radius: 5px; color: var(--accent-2); }
+    .article .callout { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; margin: 24px 0; }
+    .article .callout h4 { color: var(--accent); margin-bottom: 8px; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
+    .article .callout p { margin-bottom: 8px; }
+    .article .callout p:last-child { margin-bottom: 0; }
+    .sources { font-size: 0.88rem; }
+    .sources li { word-break: break-all; }
+    .sources a { color: var(--accent); }
+    .back-link { display: inline-block; margin-bottom: 30px; font-family: var(--mono); font-size: 0.85rem; color: var(--accent); text-decoration: none; }
+    .back-link:hover { text-decoration: underline; }
+    .article-nav { display: flex; justify-content: space-between; margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 0.9rem; }
+    .article-nav a { color: var(--accent); text-decoration: none; }
+    .article-nav a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <header class="navbar scrolled">
+    <div class="container navbar-inner">
+      <a href="../index.html" class="logo">JD<span class="logo-dot">.</span></a>
+      <nav class="nav-links">
+        <a href="../index.html#inicio">Home</a>
+        <a href="../index.html#blog">Blog</a>
+        <a href="../index.html#contacto">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="article">
+    <a href="../index.html#blog" class="back-link">← Back to blog</a>
+
+    <header class="article-header">
+      <p class="article-meta">Data Governance · August 9, 2026 · Reading: ~12 min</p>
+      <h1>Data Governance for the GenAI Era: A Practical Guide for Modern Lakehouse Platforms</h1>
+      <p class="subtitle">Active catalog, automated lineage, quality-as-code and fine-grained access control — implementing governance that actually supports generative AI on the Lakehouse.</p>
+    </header>
+
+    <h2>1. Why classic governance fails with AI and the Lakehouse</h2>
+    <p>For decades, enterprise data governance was built on three pillars: data dictionaries, approval committees and manual cataloging processes. It worked — slowly — when data lived in a rigid data warehouse model with a handful of known consumers.</p>
+    <p>That model breaks on two fronts at the same time. On one side, the <strong>Lakehouse</strong> (Apache Iceberg, Databricks, Cloudera CDP) brings open, multi-format, decentralized data: metadata no longer lives in a central repository — it is distributed across tables, files, schemas and snapshots. On the other side, <strong>generative AI</strong> turns data into the fuel for systems that did not exist before: RAG, fine-tuning, agents. A monthly committee cannot govern something that changes every hour and that models consume automatically.</p>
+    <blockquote>The question is no longer "who approves this dataset?" but "how do I trust that this data can feed a model without leaking PII, without bias and with verifiable provenance?"</blockquote>
+    <p>Gartner sums it up in its 2026 D&amp;A trends analysis: we moved <strong>"from a single source of truth to an avalanche of distrust."</strong> With medallion architecture, purpose-built data warehouses and persistence in AI tools, there is no single version of truth anymore — and generative AI keeps making inaccurate or incomplete data more accessible. Modern governance is not a dictionary: it is the <strong>structural answer to distrust</strong>.</p>
+
+    <h2>2. The 4 pillars of modern governance</h2>
+
+    <h3>2.1 Active catalog</h3>
+    <p>A catalog that only lists tables is an inventory. An <strong>active</strong> catalog is the control layer: it describes, classifies, applies policies and tracks usage in real time. In the Lakehouse ecosystem, tools like <a href="https://open-metadata.org/" target="_blank" rel="noopener">OpenMetadata</a> (open source), Unity Catalog or the Cloudera catalog are not optional: they are where the policies that processing engines consult on every read actually live.</p>
+
+    <h3>2.2 Automated lineage</h3>
+    <p>Manual lineage dies in the first pipeline. Modern lineage is extracted automatically from execution plans (Spark, Airflow, dbt): every transformation leaves a trace of which columns come from where. This is not just traceability — it is the foundation for <strong>impact analysis</strong> ("if I change this schema, which models and dashboards break?") and for auditing the origin of any data feeding a model.</p>
+
+    <h3>2.3 Quality as code</h3>
+    <p>Quality controls no longer live in Excel files or checklists: they are versioned as code in the repository and run as part of the pipeline. Frameworks like <a href="https://greatexpectations.io/" target="_blank" rel="noopener">Great Expectations</a> and <a href="https://www.soda.io/" target="_blank" rel="noopener">Soda</a> let you define declarative expectations (null rates, ranges, uniqueness, freshness) that run on every deploy. If an expectation fails, the pipeline fails — before contaminated data reaches a model.</p>
+
+    <h3>2.4 Fine-grained access control</h3>
+    <p>In an enterprise environment with Iceberg on Cloudera or Databricks, access control must be <strong>fine-grained and centralized</strong>: row-level and column-level security, not just table access. <a href="https://ranger.apache.org/" target="_blank" rel="noopener">Apache Ranger</a> and <a href="https://www.databricks.com/product/unity-catalog" target="_blank" rel="noopener">Unity Catalog</a> are the de facto standards: central policies enforced at the compute engine, preventing "shadow data" (copies living outside catalog control).</p>
+
+    <div class="callout">
+      <h4>📌 Golden rule</h4>
+      <p>If the data is not in the catalog with an applied policy and quality expectation, it <strong>does not exist</strong> for production consumption — for humans or for models.</p>
+    </div>
+
+    <h2>3. Governance applied to the data lifecycle in Iceberg</h2>
+    <p><a href="https://iceberg.apache.org/" target="_blank" rel="noopener">Apache Iceberg</a> changed the game: tables with <strong>snapshot-level metadata</strong>, time travel and schema evolution without rewrites. But those same capabilities demand finer governance:</p>
+    <ul>
+      <li><strong>Versioned metadata:</strong> every snapshot is auditable — you can answer "what did this table look like on Tuesday at 2:00 PM?" and that is gold for auditing and model debugging.</li>
+      <li><strong>Time travel and retention:</strong> governance defines how many versions are kept, with snapshot expiration and orphan file cleanup policies. Without policy, storage grows without control and costs explode.</li>
+      <li><strong>Safe partitioning:</strong> partitioning by date or region is not just performance — it is a governance decision (what do I expose, what do I isolate?). Iceberg's hidden partitioning forces you to treat partitioning as policy, not as a hack.</li>
+      <li><strong>Schema evolution:</strong> adding columns is trivial; knowing who did it, when and which consumers are affected is governance. The active catalog records that change lineage.</li>
+    </ul>
+
+    <h2>4. From catalog to RAG: governance for trustworthy GenAI</h2>
+    <p>This is where this article meets the reality of 2026. Generative AI applications (RAG, agents that automate processes) do not query dashboards: <strong>they consume data directly</strong>. An agent with access to an ungoverned Lakehouse is a compliance incident waiting to happen.</p>
+    <p>Four minimum controls before feeding a RAG or an agent:</p>
+    <ul>
+      <li><strong>Provenance:</strong> every chunk or document entering the vector store must carry its lineage — which table, which pipeline, which snapshot. If the model hallucinates, you can trace the origin.</li>
+      <li><strong>PII and sensitive data:</strong> automated classification (sensitive column tagging) must run before indexing. An active catalog with classification policies prevents the RAG from answering with customer ID numbers.</li>
+      <li><strong>Retention and deletion:</strong> the "right to be forgotten" does not exist in a vector store unless designed for it. Catalog retention policies must be replicated in the vector index: if data expires in the Lakehouse, it expires in the RAG.</li>
+      <li><strong>Inherited access control:</strong> the RAG must not have more permissions than the human asking. Row-level security enforced at the source must propagate to the retrieval layer.</li>
+    </ul>
+    <blockquote>An ungoverned RAG is an employee with full access who answers with full confidence. Governance is what turns it into a trustworthy employee.</blockquote>
+
+    <h2>5. Data contracts: the piece connecting producers and consumers</h2>
+    <p>A <strong>data contract</strong> is the agreement between whoever produces data and whoever consumes it: schema, quality expectations, freshness SLOs and ownership. It is governance in its most operational form — not a policy hanging on the intranet, but a versioned artifact validated in CI/CD.</p>
+    <p>In practice: the producer team publishes a contract (schema + expectations), the consumer (dashboard, model, agent) consumes it with guarantees, and any change that violates the contract breaks the integration — not in production, but in the pipeline. That is what turns governance from "the department that slows things down" into "the infrastructure that enables things."</p>
+
+    <h2>6. 90-day implementation roadmap</h2>
+    <div class="callout">
+      <h4>Phase 1 — Days 1-30: Inventory and active catalog</h4>
+      <p>Map critical datasets (20% of data = 80% of value). Load the catalog (OpenMetadata / Unity Catalog / CDP). Define owners. Classify PII in the top datasets. Measure: % of critical data cataloged.</p>
+    </div>
+    <div class="callout">
+      <h4>Phase 2 — Days 31-60: Lineage, quality and fine-grained access</h4>
+      <p>Enable automatic lineage on the top pipelines. Define quality expectations as code in 3-5 critical pipelines. Implement row/column-level security on PII datasets. Measure: % of critical pipelines with automated quality.</p>
+    </div>
+    <div class="callout">
+      <h4>Phase 3 — Days 61-90: Data contracts and GenAI</h4>
+      <p>Publish contracts for the 5 most consumed datasets. Establish the governance→RAG flow (provenance, retention, access). Train producers and consumers. Measure: time to access a new dataset (from days to hours).</p>
+    </div>
+
+    <h2>7. Common mistakes and lessons learned</h2>
+    <ul>
+      <li><strong>Starting with the tool, not the data:</strong> buying a governance platform before knowing which datasets matter guarantees an expensive project with no adoption.</li>
+      <li><strong>Governance as a project, not a practice:</strong> if it has an end date, it is dead. Governance is a continuous capability embedded in development, not an initiative with a finish line.</li>
+      <li><strong>Ignoring culture:</strong> Gartner talks about moving "from overload to empowerment" — data leaders must enable people to use and <em>question</em> data. Tools without empowered people are costs, not controls.</li>
+      <li><strong>Not governing models:</strong> treating AI as just another data consumer, with the same contracts and controls. It is the most expensive mistake of 2026.</li>
+    </ul>
+
+    <h2>Conclusion</h2>
+    <p>Classic governance answered a simple question: <em>who can see what?</em> GenAI-era governance answers a harder one: <em>what data can we trust for decisions — human or machine?</em> The good news is that the pieces exist and are accessible: open source active catalogs, automated lineage, quality-as-code and fine-grained control over Iceberg. What most organizations lack is not technology — it is decision and method.</p>
+    <p>And for those building agents and AI automation (OpenClaw, Claude Code, OpenCode), the message is twofold: governance is not a brake on your agents — it is what lets you give them <strong>more autonomy without losing control</strong>.</p>
+
+    <h2>Sources</h2>
+    <ul class="sources">
+      <li>Gartner — Top Data &amp; Analytics Trends: <a href="https://gartner.es/es/tecnologia-de-la-informacion/temas/tendencias-de-datos" target="_blank" rel="noopener">gartner.es/es/tecnologia-de-la-informacion/temas/tendencias-de-datos</a></li>
+      <li>Bismart — 2026 Data Trends every company should know (IDC: $420B in data analytics by 2026; Gartner: 60% of repetitive data management tasks automated by 2027): <a href="https://blog.bismart.com/tendencias-datos-2026-empresas" target="_blank" rel="noopener">blog.bismart.com/tendencias-datos-2026-empresas</a></li>
+      <li>Deimos Estadística — Data &amp; analytics trends for 2026 (BARC Data &amp; BI Trend Monitor 2026): <a href="https://deimosestadistica.com/tendencias-datos-2026/" target="_blank" rel="noopener">deimosestadistica.com/tendencias-datos-2026/</a></li>
+      <li>Apache Iceberg: <a href="https://iceberg.apache.org/" target="_blank" rel="noopener">iceberg.apache.org</a></li>
+      <li>Databricks Unity Catalog: <a href="https://www.databricks.com/product/unity-catalog" target="_blank" rel="noopener">databricks.com/product/unity-catalog</a></li>
+      <li>Apache Ranger: <a href="https://ranger.apache.org/" target="_blank" rel="noopener">ranger.apache.org</a></li>
+      <li>OpenMetadata: <a href="https://open-metadata.org/" target="_blank" rel="noopener">open-metadata.org</a></li>
+      <li>Great Expectations: <a href="https://greatexpectations.io/" target="_blank" rel="noopener">greatexpectations.io</a> · Soda: <a href="https://www.soda.io/" target="_blank" rel="noopener">soda.io</a></li>
+    </ul>
+
+    <nav class="article-nav">
+      <a href="../index.html#blog">← More articles</a>
+      <a href="../index.html#contacto">Contact →</a>
+    </nav>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Jorge Davila Lara. Made with <span class="heart">♥</span> and ☕</p>
+      <p class="footer-meta">Blog · Published on GitHub Pages</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

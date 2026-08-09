@@ -253,14 +253,19 @@
               day: "numeric"
             })
           : "";
-        const readMore = post.url
+        // URL localizada: si el post tiene .en (misma base), usarla en inglés; si no, la base
+        let postUrl = post.url || "";
+        if (postUrl && currentLang === "en" && post.urlEn) {
+          postUrl = post.urlEn;
+        }
+        const readMore = postUrl
           ? '<span class="blog-readmore">' +
             (currentLang === "es" ? "Leer artículo →" : "Read article →") +
             "</span>"
           : "";
         return (
           '<a class="blog-card reveal visible"' +
-          (post.url ? ' href="' + post.url + '" target="_blank" rel="noopener"' : "") +
+          (postUrl ? ' href="' + postUrl + '" target="_blank" rel="noopener"' : "") +
           ">" +
           '<span class="blog-meta">' + cat + (date ? " · " + date : "") + "</span>" +
           "<h3>" + title + "</h3>" +
