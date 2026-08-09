@@ -33,6 +33,12 @@
     .article-nav { display: flex; justify-content: space-between; margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 0.9rem; }
     .article-nav a { color: var(--accent); text-decoration: none; }
     .article-nav a:hover { text-decoration: underline; }
+    .article table { width: 100%; border-collapse: collapse; margin: 20px 0 28px; font-size: 0.9rem; }
+    .article th { background: var(--bg-card); color: var(--accent); text-align: left; padding: 10px 12px; border: 1px solid var(--border); font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .article td { padding: 10px 12px; border: 1px solid var(--border); color: var(--text-dim); vertical-align: top; }
+    .article tr:nth-child(even) td { background: rgba(255, 255, 255, 0.03); }
+    .article td:first-child { color: var(--text); font-weight: 600; }
+    @media (max-width: 640px) { .article table { display: block; overflow-x: auto; white-space: nowrap; } }
   </style>
 </head>
 <body>
@@ -82,6 +88,72 @@
       <h4>📌 Regla de oro</h4>
       <p>Si el dato no está en el catálogo con política aplicada y expectativa de calidad, <strong>no existe para consumo productivo — ni para el negocio, ni para los modelos.</strong></p>
     </div>
+
+    <h3>2.5 Panorama comparativo: formatos y governance por plataforma</h3>
+    <p>¿Qué formato de tabla y qué capa de governance usar en cada plataforma? El panorama de 2026 es más homogéneo de lo que parece: <strong>Iceberg es el estándar abierto de facto</strong>, soportado nativamente o con gran integración en todas las plataformas principales, mientras que el catálogo/gobierno es donde cada vendor impone su capa:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Plataforma</th>
+          <th>Almacenamiento</th>
+          <th>Formato principal / recomendado</th>
+          <th>Iceberg</th>
+          <th>Catálogo / Gobierno</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cloudera CDP</td>
+          <td>HDFS / S3 / ADLS</td>
+          <td>Iceberg</td>
+          <td>✅ Nativo</td>
+          <td>Hive Metastore / Atlas / Ranger</td>
+        </tr>
+        <tr>
+          <td>Databricks</td>
+          <td>S3 / ADLS / GCS</td>
+          <td>Delta Lake</td>
+          <td>✅ Soportado</td>
+          <td>Unity Catalog</td>
+        </tr>
+        <tr>
+          <td>Snowflake</td>
+          <td>Snowflake / S3 / ADLS</td>
+          <td>Snowflake Tables</td>
+          <td>✅ Soportado</td>
+          <td>Snowflake Horizon / Catalog</td>
+        </tr>
+        <tr>
+          <td>AWS</td>
+          <td>S3</td>
+          <td>Iceberg</td>
+          <td>✅ Muy integrado</td>
+          <td>Glue Catalog + Lake Formation + DataZone</td>
+        </tr>
+        <tr>
+          <td>Azure</td>
+          <td>ADLS Gen2</td>
+          <td>Depende del servicio</td>
+          <td>✅ Soportado</td>
+          <td>Purview / Unity Catalog / Fabric</td>
+        </tr>
+        <tr>
+          <td>Microsoft Fabric</td>
+          <td>OneLake</td>
+          <td>Delta Lake</td>
+          <td>✅ Capacidades Iceberg</td>
+          <td>OneLake + Purview</td>
+        </tr>
+        <tr>
+          <td>Google Cloud</td>
+          <td>GCS</td>
+          <td>BigLake / múltiples</td>
+          <td>✅ Soportado</td>
+          <td>Dataplex / BigLake</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>La lectura práctica: si tu organización es multi-vendor (algo común en banca, seguros y minería), <strong>apostar por Iceberg como formato estandarizado</strong> desacopla los datos del vendor de governance — mientras que la capa de catálogo/gobierno (Ranger, Unity Catalog, Horizon, Purview, DataZone, Dataplex) será el punto de integración con el gobierno corporativo.</p>
 
     <h2>3. Governance aplicado al ciclo de vida del dato en Iceberg</h2>
     <p><a href="https://iceberg.apache.org/" target="_blank" rel="noopener">Apache Iceberg</a> cambió las reglas del juego: tablas con <strong>metadata de nivel snapshot</strong>, time travel y evolución de schema sin reescrituras. Pero esas mismas capacidades exigen governance más fino:</p>

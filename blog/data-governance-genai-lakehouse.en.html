@@ -33,6 +33,12 @@
     .article-nav { display: flex; justify-content: space-between; margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 0.9rem; }
     .article-nav a { color: var(--accent); text-decoration: none; }
     .article-nav a:hover { text-decoration: underline; }
+    .article table { width: 100%; border-collapse: collapse; margin: 20px 0 28px; font-size: 0.9rem; }
+    .article th { background: var(--bg-card); color: var(--accent); text-align: left; padding: 10px 12px; border: 1px solid var(--border); font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .article td { padding: 10px 12px; border: 1px solid var(--border); color: var(--text-dim); vertical-align: top; }
+    .article tr:nth-child(even) td { background: rgba(255, 255, 255, 0.03); }
+    .article td:first-child { color: var(--text); font-weight: 600; }
+    @media (max-width: 640px) { .article table { display: block; overflow-x: auto; white-space: nowrap; } }
   </style>
 </head>
 <body>
@@ -82,6 +88,72 @@
       <h4>📌 Golden rule</h4>
       <p>If the data is not in the catalog with an applied policy and quality expectation, <strong>it does not exist for production consumption — neither for the business, nor for the models.</strong></p>
     </div>
+
+    <h3>2.5 Comparative landscape: formats and governance by platform</h3>
+    <p>Which table format and governance layer should you use on each platform? The 2026 landscape is more homogeneous than it looks: <strong>Iceberg is the de facto open standard</strong>, supported natively or with deep integration across all major platforms, while the catalog/governance layer is where each vendor enforces its own:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Platform</th>
+          <th>Storage</th>
+          <th>Primary / recommended format</th>
+          <th>Iceberg</th>
+          <th>Catalog / Governance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cloudera CDP</td>
+          <td>HDFS / S3 / ADLS</td>
+          <td>Iceberg</td>
+          <td>✅ Native</td>
+          <td>Hive Metastore / Atlas / Ranger</td>
+        </tr>
+        <tr>
+          <td>Databricks</td>
+          <td>S3 / ADLS / GCS</td>
+          <td>Delta Lake</td>
+          <td>✅ Supported</td>
+          <td>Unity Catalog</td>
+        </tr>
+        <tr>
+          <td>Snowflake</td>
+          <td>Snowflake / S3 / ADLS</td>
+          <td>Snowflake Tables</td>
+          <td>✅ Supported</td>
+          <td>Snowflake Horizon / Catalog</td>
+        </tr>
+        <tr>
+          <td>AWS</td>
+          <td>S3</td>
+          <td>Iceberg</td>
+          <td>✅ Deeply integrated</td>
+          <td>Glue Catalog + Lake Formation + DataZone</td>
+        </tr>
+        <tr>
+          <td>Azure</td>
+          <td>ADLS Gen2</td>
+          <td>Depends on service</td>
+          <td>✅ Supported</td>
+          <td>Purview / Unity Catalog / Fabric</td>
+        </tr>
+        <tr>
+          <td>Microsoft Fabric</td>
+          <td>OneLake</td>
+          <td>Delta Lake</td>
+          <td>✅ Iceberg capabilities</td>
+          <td>OneLake + Purview</td>
+        </tr>
+        <tr>
+          <td>Google Cloud</td>
+          <td>GCS</td>
+          <td>BigLake / multiple</td>
+          <td>✅ Supported</td>
+          <td>Dataplex / BigLake</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The practical takeaway: if your organization is multi-vendor (common in banking, insurance and mining), <strong>standardizing on Iceberg as the format</strong> decouples your data from the governance vendor — while the catalog/governance layer (Ranger, Unity Catalog, Horizon, Purview, DataZone, Dataplex) becomes the integration point with corporate governance.</p>
 
     <h2>3. Governance applied to the data lifecycle in Iceberg</h2>
     <p><a href="https://iceberg.apache.org/" target="_blank" rel="noopener">Apache Iceberg</a> changed the game: tables with <strong>snapshot-level metadata</strong>, time travel and schema evolution without rewrites. But those same capabilities demand finer governance:</p>
