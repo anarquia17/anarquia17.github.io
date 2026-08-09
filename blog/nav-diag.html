@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Diagnóstico navbar</title>
+<link rel="stylesheet" href="../assets/css/style.css" />
+<style>
+body { background: #0a0f1e; color: #e6edf3; font-family: monospace; padding: 24px; }
+h1 { color: #00e5ff; font-size: 18px; }
+pre { background: #111827; padding: 14px; border-radius: 8px; font-size: 12px; white-space: pre-wrap; }
+.ok { color: #4ade80; } .bad { color: #f87171; }
+</style>
+</head>
+<body>
+<h1>🔍 Diagnóstico navbar (ábrelo en tu MÓVIL)</h1>
+<pre id="out">Analizando...</pre>
+<script>
+const out = document.getElementById('out');
+const lines = [];
+const add = (t, ok) => lines.push((ok ? '✅ ' : '❌ ') + t);
+const test = async () => {
+  try {
+    add('Viewport: ' + window.innerWidth + 'px', true);
+    add('IO soportado: ' + (typeof IntersectionObserver), typeof IntersectionObserver !== 'undefined');
+    ['menuToggle','navLinks','langToggle','langLabel','navbar'].forEach(id => {
+      add('#' + id + ': ' + (document.getElementById(id) ? 'existe' : 'NO EXISTE'), !!document.getElementById(id));
+    });
+    const mjs = document.querySelectorAll('script[src*="main.js"]').length;
+    add('script main.js: ' + (mjs ? 'cargado' : 'NO ESTÁ'), mjs > 0);
+    const nl = document.getElementById('navLinks');
+    if (nl) {
+      const cs = getComputedStyle(nl);
+      add('navLinks transform: ' + cs.transform, cs.transform === 'none' || cs.transform === 'matrix(1, 0, 0, 1, 0, 0)');
+      add('navLinks display: ' + cs.display, cs.display !== 'none');
+    }
+    const mt = document.getElementById('menuToggle');
+    if (mt) {
+      const cs = getComputedStyle(mt);
+      add('menuToggle display: ' + cs.display, cs.display !== 'none');
+    }
+    const errs = window.__ERR__ || [];
+    add('Errores JS: ' + (errs.length ? errs.join(' | ') : 'ninguno'), errs.length === 0);
+    const io = document.querySelector('.reveal');
+    add('elemento .reveal en la página: ' + !!io, true);
+  } catch (e) {
+    add('EXCEPCION: ' + e.message, false);
+  }
+  out.innerHTML = lines.join('\n');
+};
+window.__ERR__ = [];
+window.addEventListener('error', e => window.__ERR__.push(e.message));
+window.addEventListener('DOMContentLoaded', test);
+</script>
+</body>
+</html>
