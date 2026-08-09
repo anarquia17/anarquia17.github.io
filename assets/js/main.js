@@ -60,6 +60,29 @@
     langToggle.addEventListener("click", toggleLang);
   }
 
+  /* ---------- Theme toggle (light/dark) ---------- */
+  const themeToggle = document.getElementById("themeToggle");
+  let currentTheme = localStorage.getItem("theme") || "dark";
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    if (themeToggle) {
+      themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
+      themeToggle.setAttribute("aria-label", theme === "dark" ? "Cambiar a tema claro" : "Switch to dark theme");
+    }
+  }
+
+  function toggleTheme() {
+    currentTheme = currentTheme === "dark" ? "light" : "dark";
+    localStorage.setItem("theme", currentTheme);
+    applyTheme(currentTheme);
+  }
+
+  applyTheme(currentTheme);
+  if (themeToggle) {
+    themeToggle.addEventListener("click", toggleTheme);
+  }
+
   /* ---------- Typed role ---------- */
   const roleEl = document.getElementById("typedRole");
   let typedIndex = 0;
